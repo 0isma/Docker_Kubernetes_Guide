@@ -13,15 +13,6 @@ Se está convirtiendo en un estándar en desarrollo de software
 No necesita un sistema operativo.
 
 
-<br>
-
-
-<img src="./pictures/1 Docker vs VM.png"
-     alt="Markdown Monster icon"> 
-
-
-
-<br>
 
 
 ## 2. Imágenes, Contenedores y puertos
@@ -75,14 +66,15 @@ Para nombrar los contenedores solo hace falta introducir --name a la hora de cre
 
 Para que cuando se nos muestre un contenedor, éste sea de la forma más vistosa posible, lo haremos pasándole el comando --format
        
-       docker ps --format = "ID\t{{.ID}}\nNAME\t{{.Names}}\nIMAGE\t{{.Image}}\nPORTS\t{{.Ports}}\ nCOMMAND\t{{.Command}}\nCREATED\t{{.CreatedAt}}\nSTATUS\t{{.Status}}\n"
+       docker ps --format="ID\t{{.ID}}\nNAME\t{{.Names}}\nIMAGE\t{{.Image}}\nPORTS\t{{.Ports}}\ nCOMMAND\t{{.Command}}\nCREATED\t{{.CreatedAt}}\nSTATUS\t{{.Status}}\n"
 
 Para no tener que escribir este churro de carcteres, exportamos una variable donde guardamos todos y volvemos a ejecutar.
 
-        export FORMAT = "ID\t{{.ID}}\nNAME\t{{.Names}}\nIMAGE\t{{.Image}}\nPORTS\t{{.Ports}}\ nCOMMAND\t{{.Command}}\nCREATED\t{{.CreatedAt}}\nSTATUS\t{{.Status}}\n"
+        export FORMAT="ID\t{{.ID}}\nNAME\t{{.Names}}\nIMAGE\t{{.Image}}\nPORTS\t{{.Ports}}\ nCOMMAND\t{{.Command}}\nCREATED\t{{.CreatedAt}}\nSTATUS\t{{.Status}}\n"
 
         docker ps --format "$FORMAT"
 
+¡¡¡¡OJO, EL SIGNO = TIENE QUE IR JUNTO!!!!!! (Sin espacios) 
 
 ## 3. Volúmenes
 Nos permite compartir info entre contedores, y entre host y contenedor.
@@ -140,13 +132,27 @@ Siendo contenedor2 el nuevo creado. De esta manera, creamos un contenedor que co
 Dockerfile nos permite construir una imagen a partir de este documento. Contiene una serie de directrices.
 Hasta ahora, nos habíamos descargado las propias imágenes de internet.
 
-<br>
+La imagen debe contener todo lo necesario para disponer de una aplicación
 
-<img src="./pictures/20. Montar un volumen en el otro.png"
-     alt="Markdown Monster icon"> 
+FROM es el primer comando a utilizar. La gran mayoría de las ocasiones no se construirá una imagen desde 0, sino desde una imagen base a partir de la cual crearemos la nuestra.
+ADD permite añadir los ficheros de nuestro host al contenedor (montar volúmenes).
+
+El comando para montar la imagen, el comando a ejecutar es:
+
+                docker build --tag <nombre_imagen:tag> <path del directorio donde está el Dockerfile>
 
 
-<br>
+## 5. DOCKER CON NODE
 
+También se pueden crear API's utilizando node.js. Para ello, podemos hacer uso de express (de node.js).
 
+### Más comandos básicos de DOCKER.
 
+El comando WORKDIR:
+
+                WORKDIR /app 
+
+Nos permite crear una carpeta (en este caso app) dentro del contenedor en caso de que no exista y que haga uso de ella.
+Todas las líneas que sigan a esta sentencia se ejecutaran dentro de la carpeta indicada en WORKDIR.
+
+ 
