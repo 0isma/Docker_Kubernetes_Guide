@@ -210,3 +210,35 @@ Sería un símil a las ramas de Git.
 <br>
 
 ## 8. Registros de docker 
+
+Son aplicaciones en el lado del servidor que nos permiten guardar y distribuir nuestras imágenes de docker. Usado para CD/CI Pipeline y nos permite correr nuestras propias aplicaciones.
+
+Para subir nuestras imágenes a un registro, basta con hacer un **push**.
+
+Un ejemplo muy común es Docker hub.
+
+Podemos tener:
++ Imágenes Públicas 
++ Imágenes privadas
+
+
+La nomenclatura estánfar para jacer push y pull de nuestras imágenes es: "<nombre:tag>" 
+
+<br>
+
+## 9. Análisis de los contenedores
+
+Con el comando
+
+        docker inspect <contenedor>
+
+podemos ver gran cantidad de información acerca del contenedor
+
+
+Para ver los logs de un contenedor, podemos utilizar el comando:
+
+        docker logs <contenedor>
+
+Para acceder dentro de un contenedor e inspeccionar su contenido, podemos hacerlo accediendo a éste mediante:
+
+        docker exec -it <contenedor> bash
