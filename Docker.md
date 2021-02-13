@@ -142,12 +142,13 @@ El comando para montar la imagen, el comando a ejecutar es:
                 docker build --tag <nombre_imagen:tag> <path del directorio donde está el Dockerfile>
 
 
-## 5. DOCKER CON NODE
+## 5. Docker con Node
 
 También se pueden crear API's utilizando node.js. Para ello, podemos hacer uso de express (de node.js).
 
 ### Más comandos básicos de DOCKER.
-
+El comando FROM:
+                FROM    node:lastest   %me bajo la imagen de node
 El comando WORKDIR:
 
                 WORKDIR /app 
@@ -155,4 +156,37 @@ El comando WORKDIR:
 Nos permite crear una carpeta (en este caso app) dentro del contenedor en caso de que no exista y que haga uso de ella.
 Todas las líneas que sigan a esta sentencia se ejecutaran dentro de la carpeta indicada en WORKDIR.
 
- 
+                ADD . <directorio actual> /usr/share/nginx/html <directorio destino>
+                RUN npm install   %para instalar express
+                CMD node index.js   %llama a la línea de comando y corre la orden
+
+También existen otros comandos como COPY
+
+                COPY <ruta directorio host> <rura contenedor>
+
+
+### Caché
+Cuando  se han creado nuevas imágenes a partir de un docker file, el proceso de carga puede ser longevo. Por eso cuando no es la primera vez, que esto sucede, docker echa mano de la caché. 
+
+Gracias a esta funcionalidad, sólo se cargarán las dependencias nuevas o que se hayan cambiado, ahorrando mucho tiempo en el proceso.
+
+
+
+## 6. Alpine (Docker)
+
+Alpine son versiones de imágenes que ocupan muy poco tamaño.
+
+Para obtener este tipo de versiones basta con ir a dockerhub y buscar en el propio perfil de la imagen la versión de alpine y hacer un pull:
+
+                docker pull <imagen>:alpine
+
+Para crearnos nuestra imagen sobre ésta, habrá que modificar el propio archivo de dockerfile.
+
+Luego creamos el contenedor. En este caso, el contenedor es node, cuya aplicación escucha por defecto en el puerto 3000.
+
+
+## 7. Tags, Veriones y Tagging
+Las etiquetas nos permiten comprobar la versión de las imágenes que tenemos. Nos aseguramos de que no nos afecten los cambios.
+
+                docker run --name nodeAlpine -d -p 2000:3000 user-api-service:latest 
+
