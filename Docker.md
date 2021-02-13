@@ -170,7 +170,7 @@ Cuando  se han creado nuevas imágenes a partir de un docker file, el proceso de
 
 Gracias a esta funcionalidad, sólo se cargarán las dependencias nuevas o que se hayan cambiado, ahorrando mucho tiempo en el proceso.
 
-
+<br>
 
 ## 6. Alpine (Docker)
 
@@ -185,8 +185,60 @@ Para crearnos nuestra imagen sobre ésta, habrá que modificar el propio archivo
 Luego creamos el contenedor. En este caso, el contenedor es node, cuya aplicación escucha por defecto en el puerto 3000.
 
 
-## 7. Tags, Veriones y Tagging
+<br>
+
+## 7. Tags, Veriones y Tagging (Etiquetas)
 Las etiquetas nos permiten comprobar la versión de las imágenes que tenemos. Nos aseguramos de que no nos afecten los cambios.
 
                 docker run --name nodeAlpine -d -p 2000:3000 user-api-service:latest 
 
+Cada vez que construimos una imagen sobre un mismo dockerfile, se sobreescribe la anterior. Esto desemboca en una imagen none.
+
+### Buen etiquetado de las imágenes
+
+Para crear varias versiones de una misma imagen, podemos echar mano de **tag**. Tag nos permite "clonar" una misma imagen cambiando la etiqueta. 
+                
+                docker tag <imagen:tag1> <imagen:tag2>
+                docker tag nodealpine:ultima nodealpine:1
+
+En etse momento tenemos dos imágenes iguales con distinto nombre, a partir de las cuales prodremos hacer múltiples cambios y generar contenedores de cada una de ellas.
+
+Esto es una herramienta muy buena para trabajar con fallos. Podemos crerar nuevas versiones de las imágenes sobre las que operaremos sin miedo a equivocarnos. 
+
+Sería un símil a las ramas de Git.
+
+<br>
+
+## 8. Registros de docker 
+
+Son aplicaciones en el lado del servidor que nos permiten guardar y distribuir nuestras imágenes de docker. Usado para CD/CI Pipeline y nos permite correr nuestras propias aplicaciones.
+
+Para subir nuestras imágenes a un registro, basta con hacer un **push**.
+
+Un ejemplo muy común es Docker hub.
+
+Podemos tener:
++ Imágenes Públicas 
++ Imágenes privadas
+
+
+La nomenclatura estánfar para jacer push y pull de nuestras imágenes es: "<nombre:tag>" 
+
+<br>
+
+## 9. Análisis de los contenedores
+
+Con el comando
+
+        docker inspect <contenedor>
+
+podemos ver gran cantidad de información acerca del contenedor
+
+
+Para ver los logs de un contenedor, podemos utilizar el comando:
+
+        docker logs <contenedor>
+
+Para acceder dentro de un contenedor e inspeccionar su contenido, podemos hacerlo accediendo a éste mediante:
+
+        docker exec -it <contenedor> bash
